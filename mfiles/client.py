@@ -103,7 +103,7 @@ class MFilesClient():
         print(response.text)
         auth_token = json.loads(response.text)["Value"]
         print("AUTH TOKEN: " + auth_token)
-        while auth_token = None:
+        while auth_token == None:
             request_url = self.server + "server/authenticationtokens"
             response = requests.post(request_url, data=auth)
             print(response.text)
