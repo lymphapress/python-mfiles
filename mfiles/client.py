@@ -102,6 +102,13 @@ class MFilesClient():
         response = requests.post(request_url, data=auth)
         print(response.text)
         auth_token = json.loads(response.text)["Value"]
+        print("AUTH TOKEN: " + auth_token)
+        while auth_token = None:
+            request_url = self.server + "server/authenticationtokens"
+            response = requests.post(request_url, data=auth)
+            print(response.text)
+            auth_token = json.loads(response.text)["Value"]
+            print("AUTH TOKEN: " + auth_token)
         self.headers = {"X-Authentication": auth_token}
 
     def get(self, endpoint):
