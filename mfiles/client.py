@@ -102,15 +102,8 @@ class MFilesClient():
         response = requests.post(request_url, data=auth)
         print(response.text)
         auth_token = json.loads(response.text)["Value"]
-        print("AUTH TOKEN: " + auth_token)
-        while auth_token == None:
-            request_url = self.server + "server/authenticationtokens"
-            response = requests.post(request_url, data=auth)
-            print(response.text)
-            auth_token = json.loads(response.text)["Value"]
-            print("AUTH TOKEN: " + auth_token)
         self.headers = {"X-Authentication": auth_token}
-
+        print(self.headers)
     def get(self, endpoint):
         """General purpose GET method.
 
@@ -486,6 +479,7 @@ class MFilesClient():
         request_url = "%sobjects/%s/%s/%s/files/%s/content" % \
             (self.server, object_type, object_id, object_version, file_id)
         response = requests.get(request_url, headers=self.headers)
+        print("DOWNLOAD: " + headers)
         if response.status_code != 200:
             raise MFilesException(response.text)
         with open(local_path, mode="wb+") as file_stream:
